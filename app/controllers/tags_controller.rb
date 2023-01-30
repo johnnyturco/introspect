@@ -1,0 +1,44 @@
+class TagsController < ApplicationController
+
+  # GET to "/tags" route
+  def index
+    render json: user_tags, status: :ok
+  end
+
+  # GET to "/tags/:id" route
+  def show
+    tag = user_tags.find(params[:id])
+    render json: tag
+  end
+
+  # POST to "/tags" route
+  def create
+    tag = Bill.create!(tag_params)
+    render json: tag, status: :created
+  end
+
+  # PATCH to "/tags/:id" route
+  def update
+    tag = user_tags.find(params[:id])
+    tag.update!(tag_params)
+    render json: tag, status: :accepted
+  end
+
+  # DELETE to "/tags/:id" route
+  def destroy
+    tag = user_tags.find(params[:id])
+    tag.destroy
+    head :no_content
+  end
+
+  private
+
+  def tag_params
+    params.permit(:tag_name)
+  end
+
+  def user_tags
+    Tag.where(:user_id => current_user.id)
+  end
+
+end
