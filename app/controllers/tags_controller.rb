@@ -2,13 +2,13 @@ class TagsController < ApplicationController
 
   # GET to "/tags" route
   def index
-    render json: user_tags, status: :ok
+    render json: user_tags, serializer: TagWithPostsSerializer, status: :ok
   end
 
   # GET to "/tags/:id" route
   def show
     tag = user_tags.find(params[:id])
-    render json: tag
+    render json: tag, serializer: TagWithPostsSerializer
   end
 
   # POST to "/tags" route
@@ -34,7 +34,7 @@ class TagsController < ApplicationController
   private
 
   def tag_params
-    params.permit(:tag_name)
+    params.permit(:tag_name, :user_id)
   end
 
   def user_tags

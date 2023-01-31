@@ -29,7 +29,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.permit(:post_text, :mood, :created_date :user_id, :tag_id)
+    params.permit(:post_text, :mood, :user_id, :tag_id)
   end
 
 end
