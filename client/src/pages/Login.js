@@ -6,7 +6,7 @@ function Login() {
 
   const [ errors, setErrors ] = useState([])
 
-  let { setUser } = useContext(UserContext);
+  let { user, setUser } = useContext(UserContext);
 
   let history = useHistory();
 
@@ -43,7 +43,7 @@ function Login() {
       }, []);
   }
 
-  return (
+  return !user ? (
     <div>
       <h1>Login to Introspect</h1>
       <form onSubmit={handleSubmit}>
@@ -76,7 +76,7 @@ function Login() {
         </div>
       ) : null}
     </div>
-  )
+  ) : history.push("/timeline")
 }
 
 export default Login;
