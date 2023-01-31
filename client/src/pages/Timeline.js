@@ -3,7 +3,7 @@
 function Timeline() {
 
   return (
-    <div>hello world</div>
+    <h1>Timeline</h1>
   )
 }
 

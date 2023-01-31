@@ -1,19 +1,22 @@
 import { useContext, useState } from 'react';
-import { useHistory, Link } from 'react-router-dom';
 import { UserContext } from '../context/UserProvider';
+import { useHistory } from 'react-router-dom';
 
-function Login() {
+function SignUp() {
 
-  const [ errors, setErrors ] = useState([])
+  const [ errors, setErrors ] = useState([]);
 
   let { setUser } = useContext(UserContext);
 
-  let history = useHistory();
-
   const [ credentials, setCredentials ] = useState({
+    first_name: "",
+    last_name: "",
     email: "",
-    password: ""
+    password: "",
+    password_confirmation: ""
   })
+
+  let history = useHistory();
 
   function handleChange(e) {
     setCredentials((prevCredentials) => {
@@ -26,7 +29,7 @@ function Login() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    fetch(`/login`, {
+    fetch(`/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -45,8 +48,22 @@ function Login() {
 
   return (
     <div>
-      <h1>Login to Introspect</h1>
+      <h1>Sign Up for Introspect</h1>
       <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="first_name"
+          placeholder="first name"
+          value={credentials.first_name}
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="last_name"
+          placeholder="last name"
+          value={credentials.last_name}
+          onChange={handleChange}
+        />
         <input
           type="email"
           name="email"
@@ -61,12 +78,15 @@ function Login() {
           value={credentials.password}
           onChange={handleChange}
         />
-        <button type="submit">login</button>
+        <input
+          type="password"
+          name="password_confirmation"
+          placeholder="confirm password"
+          value={credentials.password_confirmation}
+          onChange={handleChange}
+        />
+        <button type="submit">sign up</button>
       </form>
-
-      <div>
-        <Link to="/signup">sign up</Link>
-      </div>
 
       {errors ? (
         <div>
@@ -79,4 +99,4 @@ function Login() {
   )
 }
 
-export default Login;
+export default SignUp;

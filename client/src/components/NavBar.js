@@ -26,7 +26,7 @@ function NavBar() {
             <NavLink exact to="/new">new</NavLink>
             <NavLink exact to="/timeline">timeline</NavLink>
             <NavLink exact to="/tags">tags</NavLink>
-            <NavLink exact to="/trends">trends</NavLink>
+            {/* <NavLink exact to="/trends">trends</NavLink> */}
           </section>
           <section>
             <NavLink exact to="/" onClick={handleLogout}>logout</NavLink>
