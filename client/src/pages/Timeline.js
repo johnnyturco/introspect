@@ -1,9 +1,11 @@
-
+import PostList from '../components/PostList';
 
 function Timeline() {
 
   return (
-    <h1>Timeline</h1>
+    <main className="timeline">
+      <PostList />
+    </main>
   )
 }
 

@@ -20,23 +20,22 @@ function NavBar() {
 
   return (
     <nav>
+      <span className="logo">introspect.</span>
       {user ? (
-        <>
-          <section>
-            <NavLink exact to="/new">new</NavLink>
-            <NavLink exact to="/timeline">timeline</NavLink>
-            <NavLink exact to="/tags">tags</NavLink>
-            {/* <NavLink exact to="/trends">trends</NavLink> */}
-          </section>
-          <section>
-            <NavLink exact to="/" onClick={handleLogout}>logout</NavLink>
-            <NavLink exact to="/profile">profile</NavLink>
-          </section>
-        </>
+        <div className="navbar">
+          <NavLink exact to="/new">new</NavLink>
+          <NavLink exact to="/timeline">timeline</NavLink>
+          <NavLink exact to="/tags">tags</NavLink>
+          {/* <NavLink exact to="/trends">trends</NavLink> */}
+          <NavLink exact to="/" onClick={handleLogout} className="login-logout">logout</NavLink>
+          <NavLink exact to="/profile">profile</NavLink>
+        </div>
         )
 
       : (
-        <NavLink exact to="/" onClick={history.push("/")}>login</NavLink>
+        <div className="navbar">
+          <NavLink exact to="/" onClick={history.push("/")} className="login-logout">login</NavLink>
+        </div>
         )
       }
     </nav>

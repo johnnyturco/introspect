@@ -8,7 +8,7 @@ class PostsController < ApplicationController
 
   # POST to "/posts" route
   def create
-    post = Post.create!(post_params)
+    post = Post.create!(user_id: current_user.id, post_text: params[:post_text], mood: params[:mood], tag_id: params[:tag_id])
     render json: post, status: :created
   end
 

@@ -1,27 +1,24 @@
-import { useContext, useState } from 'react';
-import { UserContext } from '../context/UserProvider';
-import { useHistory } from 'react-router-dom';
+import { useState, useContext } from 'react';
+import { UserContext } from '../context/UserProvider'
 
-function SignUp() {
+function Profile() {
 
-  const [ errors, setErrors ] = useState([]);
-
-  let { setUser } = useContext(UserContext);
+  let { user } = useContext(UserContext);
 
   const [ credentials, setCredentials ] = useState({
-    first_name: "",
-    last_name: "",
-    email: "",
+    first_name: user.first_name,
+    last_name: user.last_name,
+    email: user.email,
     password: "",
     password_confirmation: ""
   })
-
-  let history = useHistory();
+  // console.log(credentials)
 
   function handleChange(e) {
     setCredentials((prevCredentials) => {
       return {
-        ...prevCredentials, [e.target.name]: e.target.value
+        ...prevCredentials,
+        [e.target.name]: e.target.value
       }
     })
   }
@@ -29,55 +26,50 @@ function SignUp() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    fetch(`/signup`, {
-      method: "POST",
+    fetch(`/users`, {
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(credentials)
     })
-      .then((r) => {
-        if (r.ok) {
-          r.json().then((currentUser) => setUser(currentUser));
-          history.push("/timeline");
-        } else {
-          r.json().then((err) => setErrors(err.errors));
-        }
-      }, []);
+      .then((r) => r.json)
+      .then((data) => console.log(data))
   }
 
   return (
-    <div>
-      <h1>Sign Up for Introspect</h1>
-      <form onSubmit={handleSubmit}>
+    <main className="profile-container">
+      <h2>update profile</h2>
+      <form className="profile-form card" onSubmit={handleSubmit}>
         <input
           type="text"
           name="first_name"
-          placeholder="first name"
           value={credentials.first_name}
           onChange={handleChange}
         />
+
         <input
           type="text"
           name="last_name"
-          placeholder="last name"
           value={credentials.last_name}
           onChange={handleChange}
         />
+
         <input
-          type="email"
+          type="text"
           name="email"
-          placeholder="email"
           value={credentials.email}
           onChange={handleChange}
         />
+
         <input
           type="password"
           name="password"
-          placeholder="password"
+          placeholder="new password"
           value={credentials.password}
           onChange={handleChange}
         />
+
         <input
           type="password"
           name="password_confirmation"
@@ -85,18 +77,11 @@ function SignUp() {
           value={credentials.password_confirmation}
           onChange={handleChange}
         />
-        <button type="submit">sign up</button>
-      </form>
 
-      {errors.length ? (
-        <div>
-          {errors.map((err) => (
-            <p key={err}>{err}</p>
-          ))}
-        </div>
-      ) : null}
-    </div>
+        <button type="submit">update</button>
+      </form>
+    </main>
   )
 }
 
-export default SignUp;
+export default Profile;
