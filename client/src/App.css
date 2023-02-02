@@ -182,14 +182,14 @@ a:hover::before {
   font-style: italic;
 }
 
-/* PROFILE & LOGIN */
-.profile-container, .login-container {
+/* PROFILE, LOGIN, & SIGNUP */
+.profile-container, .login-container, .signup-container {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.profile-form, .login-form {
+.profile-form, .login-form, .signup-form {
   display: flex;
   flex-direction: column;
   width: 300px;

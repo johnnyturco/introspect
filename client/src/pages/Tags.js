@@ -1,8 +1,20 @@
+import { useContext } from 'react';
+// import { UserContext } from '../context/UserProvider';
+import { TagsContext } from '../context/TagsProvider';
 
 function Tags() {
 
+  // let { user } = useContext(UserContext);
+  const { tags, setTags } = useContext(TagsContext);
+
+  if (tags) {
+    tags.map((tag) => (
+      console.log(tag.tag_name)
+    ))
+  }
+
   return (
-    <h1>Tags</h1>
+    <h2>Tags</h2>
   )
 }
 

@@ -4,7 +4,9 @@ import Post from "./Post";
 import NewPostForm from "./NewPostForm";
 
 function PostList() {
+
   const { posts, setPosts } = useContext(PostsContext);
+
   const sorted = useMemo(
     () =>
       posts

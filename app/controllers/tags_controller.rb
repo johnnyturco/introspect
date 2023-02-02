@@ -2,7 +2,7 @@ class TagsController < ApplicationController
 
   # GET to "/tags" route
   def index
-    render json: user_tags, serializer: TagWithPostsSerializer, status: :ok
+    render json: user_tags#, serializer: TagWithPostsSerializer, status: :ok
   end
 
   # GET to "/tags/:id" route

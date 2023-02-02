@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { UserProvider } from './context/UserProvider';
 import { PostsProvider } from './context/PostsProvider';
+import { TagsProvider } from './context/TagsProvider';
 import { Switch, Route } from 'react-router-dom';
 import Login from './pages/Login'
 import NewPost from './pages/NewPost'
@@ -15,30 +16,32 @@ function App() {
   return (
     <UserProvider>
       <PostsProvider>
-        <NavBar />
-        <Switch>
-          <Route path="/new">
-            <NewPost />
-          </Route>
-          <Route path="/timeline">
-            <Timeline />
-          </Route>
-          <Route path="/tags">
-            <Tags />
-          </Route>
-          <Route path="/profile">
-            <Profile />
-          </Route>
-          <Route path="/signup">
-            <SignUp />
-          </Route>
-          {/* <Route path="/trends">
-            <Trends />
-          </Route> */}
-          <Route exact path="/">
-            <Login />
-          </Route>
-        </Switch>
+        <TagsProvider>
+          <NavBar />
+          <Switch>
+            <Route path="/new">
+              <NewPost />
+            </Route>
+            <Route path="/timeline">
+              <Timeline />
+            </Route>
+            <Route path="/tags">
+              <Tags />
+            </Route>
+            <Route path="/profile">
+              <Profile />
+            </Route>
+            <Route path="/signup">
+              <SignUp />
+            </Route>
+            {/* <Route path="/trends">
+              <Trends />
+            </Route> */}
+            <Route exact path="/">
+              <Login />
+            </Route>
+          </Switch>
+        </TagsProvider>
       </PostsProvider>
     </UserProvider>
   );

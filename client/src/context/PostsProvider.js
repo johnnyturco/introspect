@@ -7,7 +7,7 @@ function PostsProvider({ children }) {
 
   const { user } = useContext(UserContext);
 
-  const [ posts, setPosts ] = useState(null)
+  const [ posts, setPosts ] = useState(null);
 
   useEffect(() => {
     if (user) {
@@ -24,4 +24,4 @@ function PostsProvider({ children }) {
   )
 }
 
-export { PostsContext, PostsProvider }
+export { PostsContext, PostsProvider };

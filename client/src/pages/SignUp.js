@@ -47,9 +47,9 @@ function SignUp() {
   }
 
   return (
-    <div>
-      <h1>Sign Up for Introspect</h1>
-      <form onSubmit={handleSubmit}>
+    <main className="signup-container">
+      <h2>sign up for <span className="logo-small">introspect.</span></h2>
+      <form className="signup-form card" onSubmit={handleSubmit}>
         <input
           type="text"
           name="first_name"
@@ -95,7 +95,7 @@ function SignUp() {
           ))}
         </div>
       ) : null}
-    </div>
+    </main>
   )
 }
 

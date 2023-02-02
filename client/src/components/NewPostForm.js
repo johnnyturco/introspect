@@ -1,5 +1,6 @@
 import { useState, useContext } from 'react';
 import { UserContext } from '../context/UserProvider';
+import { TagsContext } from '../context/TagsProvider';
 
 
 function NewPostForm({ setPosts }) {
@@ -7,6 +8,7 @@ function NewPostForm({ setPosts }) {
   const [ errors, setErrors ] = useState([])
 
   let { user } = useContext(UserContext);
+  let { tags, setTags } = useContext(TagsContext);
 
   const [ newPost, setNewPost ] = useState({
     post_text: "",
@@ -71,7 +73,10 @@ function NewPostForm({ setPosts }) {
 
           <div>
             <select name="tag_id">
-              <option value="tag">tag</option>
+              <option value="tag">select a tag</option>
+              {tags.map((tag) => (
+                <option value={tag.tag_name} key={tag.tag_name}>{tag.tag_name}</option>
+              ))}
             </select>
           </div>
 
