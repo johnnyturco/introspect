@@ -136,8 +136,8 @@ a:hover::before {
   height: 100%;
 }
 
-/* TIMELINE */
-.timeline {
+/* TIMELINE & TAGS */
+.timeline, .tags {
   display: flex;
   flex-direction: column;
   align-items: center;

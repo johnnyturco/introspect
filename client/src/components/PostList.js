@@ -4,7 +4,6 @@ import Post from "./Post";
 import NewPostForm from "./NewPostForm";
 
 function PostList() {
-
   const { posts, setPosts } = useContext(PostsContext);
 
   const sorted = useMemo(
@@ -20,9 +19,12 @@ function PostList() {
       <section>
         <NewPostForm setPosts={setPosts} />
       </section>
+      <h2>timeline</h2>
       <section>
         {posts
-          ? sorted.map((post) => <Post key={post.id} post={post} />)
+          ? sorted.map((post) => (
+              <Post key={post.id} post={post} isTag={true} />
+            ))
           : null}
       </section>
     </>

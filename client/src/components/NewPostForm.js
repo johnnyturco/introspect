@@ -2,6 +2,11 @@ import { useState, useContext } from 'react';
 import { UserContext } from '../context/UserProvider';
 import { TagsContext } from '../context/TagsProvider';
 
+const defaultPost = {
+  post_text: "",
+  mood: "select",
+  tag_id: "select"
+}
 
 function NewPostForm({ setPosts }) {
 
@@ -10,11 +15,7 @@ function NewPostForm({ setPosts }) {
   let { user } = useContext(UserContext);
   let { tags, setTags } = useContext(TagsContext);
 
-  const [ newPost, setNewPost ] = useState({
-    post_text: "",
-    mood: "",
-    tag_id: 2
-  })
+  const [ newPost, setNewPost ] = useState(defaultPost)
   // console.log(newPost)
 
   function handleChange(e) {
@@ -46,6 +47,7 @@ function NewPostForm({ setPosts }) {
         r.json().then((err) => setErrors(err.errors))
       }
     })
+    setNewPost(defaultPost);
   }
 
   return (
@@ -72,11 +74,11 @@ function NewPostForm({ setPosts }) {
           </div>
 
           <div>
-            <select name="tag_id">
-              <option value="tag">select a tag</option>
-              {tags.map((tag) => (
-                <option value={tag.tag_name} key={tag.tag_name}>{tag.tag_name}</option>
-              ))}
+            <select name="tag_id" onChange={handleChange}>
+              <option value="select">select a tag</option>
+              {/* {tags ? (tags.map((tag) => (
+                <option value={tag.id} key={tag.id}>{tag.tag_name}</option>
+              ))) : "Loading…"} */}
             </select>
           </div>
 
