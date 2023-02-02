@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 // import NewPost from "./pages/NewPost";
 import Timeline from "./pages/Timeline";
 import Tags from "./pages/Tags";
+import Trends from "./pages/Trends";
 import Profile from "./pages/Profile";
 import SignUp from "./pages/SignUp";
 import NavBar from "./components/NavBar";
@@ -27,6 +28,9 @@ function App() {
             </Route>
             <Route path="/tags">
               <Tags />
+            </Route>
+            <Route path="/trends">
+              <Trends />
             </Route>
             <Route path="/profile">
               <Profile />

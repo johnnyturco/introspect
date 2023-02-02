@@ -84,7 +84,7 @@ function NewPostForm({ setPosts, pushHome }) {
           <div>
             <select name="tag_id" onChange={handleChange}>
               <option value="select">select a tag</option>
-              {/* {tags ? (
+              {tags & user ? (
                 tags.map((tag) => (
                   <option value={tag.id} key={tag.id}>
                     {tag.tag_name}
@@ -92,9 +92,11 @@ function NewPostForm({ setPosts, pushHome }) {
                 ))
               ) : (
                 <option value="loading">loading…</option>
-              )} */}
+              )}
             </select>
           </div>
+
+          <button className="new-tag-button">new tag</button>
 
           <button
             className="post-button"

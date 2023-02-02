@@ -6,10 +6,10 @@ function NewPost() {
   const { setPosts } = useContext(PostsContext);
 
   return (
-    <container className="new-post">
+    <div className="new-post">
       <h2>new post</h2>
       <NewPostForm setPosts={setPosts} pushHome={true} />
-    </container>
+    </div>
   );
 }
 

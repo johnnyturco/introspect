@@ -31,7 +31,9 @@ function NavBar() {
           <NavLink exact to="/tags">
             tags
           </NavLink>
-          {/* <NavLink exact to="/trends">trends</NavLink> */}
+          <NavLink exact to="/trends">
+            trends
+          </NavLink>
           <NavLink exact to="/" onClick={handleLogout} className="login-logout">
             logout
           </NavLink>
