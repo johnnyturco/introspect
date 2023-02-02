@@ -1,29 +1,29 @@
-import { useContext, useState } from 'react';
-import { UserContext } from '../context/UserProvider';
-import { useHistory } from 'react-router-dom';
+import { useContext, useState } from "react";
+import { UserContext } from "../context/UserProvider";
+import { useHistory } from "react-router-dom";
 
 function SignUp() {
-
-  const [ errors, setErrors ] = useState([]);
+  const [errors, setErrors] = useState([]);
 
   let { setUser } = useContext(UserContext);
 
-  const [ credentials, setCredentials ] = useState({
+  const [credentials, setCredentials] = useState({
     first_name: "",
     last_name: "",
     email: "",
     password: "",
-    password_confirmation: ""
-  })
+    password_confirmation: "",
+  });
 
   let history = useHistory();
 
   function handleChange(e) {
     setCredentials((prevCredentials) => {
       return {
-        ...prevCredentials, [e.target.name]: e.target.value
-      }
-    })
+        ...prevCredentials,
+        [e.target.name]: e.target.value,
+      };
+    });
   }
 
   function handleSubmit(e) {
@@ -32,23 +32,24 @@ function SignUp() {
     fetch(`/signup`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(credentials)
-    })
-      .then((r) => {
-        if (r.ok) {
-          r.json().then((currentUser) => setUser(currentUser));
-          history.push("/timeline");
-        } else {
-          r.json().then((err) => setErrors(err.errors));
-        }
-      }, []);
+      body: JSON.stringify(credentials),
+    }).then((r) => {
+      if (r.ok) {
+        r.json().then((currentUser) => setUser(currentUser));
+        history.push("/timeline");
+      } else {
+        r.json().then((err) => setErrors(err.errors));
+      }
+    }, []);
   }
 
   return (
-    <main className="signup-container">
-      <h2>sign up for <span className="logo-small">introspect.</span></h2>
+    <main className="signup-container fade-in-fwd">
+      <h2>
+        sign up for <span className="logo-small">introspect.</span>
+      </h2>
       <form className="signup-form card" onSubmit={handleSubmit}>
         <input
           type="text"
@@ -96,7 +97,7 @@ function SignUp() {
         </div>
       ) : null}
     </main>
-  )
+  );
 }
 
 export default SignUp;

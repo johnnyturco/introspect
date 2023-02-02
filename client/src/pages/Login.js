@@ -47,25 +47,27 @@ function Login() {
   }
 
   return (
-    <main className="login-container">
-      <h2>login to <span className="logo-small">introspect.</span></h2>
-        <form className="login-form card" onSubmit={handleSubmit}>
-          <input
-            type="email"
-            name="email"
-            placeholder="email"
-            value={credentials.email}
-            onChange={handleChange}
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="password"
-            value={credentials.password}
-            onChange={handleChange}
-          />
-          <button type="submit">login</button>
-        </form>
+    <main className="login-container fade-in-fwd">
+      <h2>
+        login to <span className="logo-small">introspect.</span>
+      </h2>
+      <form className="login-form card" onSubmit={handleSubmit}>
+        <input
+          type="email"
+          name="email"
+          placeholder="email"
+          value={credentials.email}
+          onChange={handleChange}
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="password"
+          value={credentials.password}
+          onChange={handleChange}
+        />
+        <button type="submit">login</button>
+      </form>
 
       <div>
         <Link to="/signup">sign up</Link>

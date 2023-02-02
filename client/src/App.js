@@ -1,16 +1,16 @@
-import React, { useContext, useState } from 'react';
-import { UserProvider } from './context/UserProvider';
-import { PostsProvider } from './context/PostsProvider';
-import { TagsProvider } from './context/TagsProvider';
-import { Switch, Route } from 'react-router-dom';
-import Login from './pages/Login'
-import NewPost from './pages/NewPost'
-import Timeline from './pages/Timeline'
-import Tags from './pages/Tags'
-import Profile from './pages/Profile'
-import SignUp from './pages/SignUp'
-import NavBar from './components/NavBar'
-import './App.css';
+import React, { useContext, useState } from "react";
+import { UserProvider } from "./context/UserProvider";
+import { PostsProvider } from "./context/PostsProvider";
+import { TagsProvider } from "./context/TagsProvider";
+import { Switch, Route } from "react-router-dom";
+import Login from "./pages/Login";
+// import NewPost from "./pages/NewPost";
+import Timeline from "./pages/Timeline";
+import Tags from "./pages/Tags";
+import Profile from "./pages/Profile";
+import SignUp from "./pages/SignUp";
+import NavBar from "./components/NavBar";
+import "./App.css";
 
 function App() {
   return (
@@ -19,9 +19,9 @@ function App() {
         <TagsProvider>
           <NavBar />
           <Switch>
-            <Route path="/new">
+            {/* <Route path="/new">
               <NewPost />
-            </Route>
+            </Route> */}
             <Route path="/timeline">
               <Timeline />
             </Route>
