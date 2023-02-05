@@ -1,6 +1,6 @@
 function Post({ post, isTag }) {
   return (
-    <article className="card post fade-in-fwd">
+    <article className="card post">
       <div className="post-text">{post.post_text}</div>
       <div className="post-mood-tag">
         <div className="post-mood">{post.mood}</div>

@@ -66,7 +66,6 @@ select {
   width: 125px;
   text-align: center;
   border-radius: 10px;
-  margin: 10px 13px 0 0;
 }
 
 input {
@@ -84,10 +83,11 @@ input {
 nav {
   display: flex;
   padding: 10px 10px 30px 10px;
-  margin-bottom: 20px;
+  margin-bottom: 32px;
   flex-direction: column;
-  /* background-color: #13171c; */
+  /* background-color: #13171c;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  isolation: isolate; */
 }
 
 .logo {
@@ -138,7 +138,7 @@ a:hover::before {
 }
 
 /* NEWPOST, TIMELINE, & TAGS */
-.new-post, .timeline, .tags {
+.new-post, .timeline, .tags, .trends {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -151,24 +151,24 @@ a:hover::before {
 
 .post-form-bottom {
   display: flex;
+  gap: 10px;
   justify-content: space-between;
+  padding-top: 20px;
 }
 
 .post-button {
   margin-left: auto;
-  margin-top: 10px;
 }
 
-.new-tag-button {
-  margin-top: 10px;
+.secondary-button {
   background-color: #4c4e54;
 }
 
-.new-tag-button:hover {
+.secondary-button:hover {
   background-color: #767676;
 }
 
-.new-tag-button:active {
+.secondary-button:active {
   background-color: #3c3d41;
 }
 
@@ -223,4 +223,27 @@ a:hover::before {
     transform: translateZ(0);
     opacity: 1;
   }
+}
+
+/* DIALOG */
+.back-drop {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dialog {
+  background-color: #242a31;
+  padding: 20px;
+  margin: 30px;
+  border-radius: 10px;
+}
+
+.dialog-buttons {
+  display: flex;
+  gap: 20px;
 }

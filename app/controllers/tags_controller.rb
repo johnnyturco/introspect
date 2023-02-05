@@ -13,7 +13,7 @@ class TagsController < ApplicationController
 
   # POST to "/tags" route
   def create
-    tag = Bill.create!(tag_params)
+    tag = Tag.create!(user_id: current_user.id, tag_name: params[:tag_name])
     render json: tag, status: :created
   end
 

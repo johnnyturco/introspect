@@ -1,27 +1,26 @@
-import { createContext, useState, useEffect, useContext } from 'react';
-import { UserContext } from './UserProvider';
+import { createContext, useState, useEffect, useContext } from "react";
+import { UserContext } from "./UserProvider";
 
 const TagsContext = createContext();
 
 function TagsProvider({ children }) {
-
   const { user } = useContext(UserContext);
 
-  const [ tags, setTags ] = useState(1);
+  const [tags, setTags] = useState([]);
 
   useEffect(() => {
     if (user) {
-      fetch(`/tags`,)
+      fetch(`/tags`)
         .then((r) => r.json())
-        .then((tagsFromServer) => setTags(tagsFromServer))
+        .then((tagsFromServer) => setTags(tagsFromServer));
     }
-  }, [user])
+  }, [user]);
 
   return (
     <TagsContext.Provider value={{ tags, setTags }}>
-      { children }
+      {children}
     </TagsContext.Provider>
-  )
+  );
 }
 
 export { TagsContext, TagsProvider };

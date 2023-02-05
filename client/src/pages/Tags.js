@@ -12,7 +12,7 @@ function Tags() {
   // }
 
   return (
-    <container className="tags">
+    <div className="tags fade-in-fwd">
       <h2>tags</h2>
       <main>
         {tags.map((tag) => (
@@ -21,7 +21,7 @@ function Tags() {
           </section>
         ))}
       </main>
-    </container>
+    </div>
   );
 }
 

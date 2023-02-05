@@ -2,11 +2,12 @@ import { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../context/UserProvider";
 import { TagsContext } from "../context/TagsProvider";
+import AddTagDialog from "./AddTagDialog";
 
 const defaultPost = {
   post_text: "",
-  mood: "select",
-  tag_id: "select",
+  mood: "none",
+  tag_id: "none",
 };
 
 function NewPostForm({ setPosts, pushHome }) {
@@ -18,7 +19,7 @@ function NewPostForm({ setPosts, pushHome }) {
   let history = useHistory();
 
   const [newPost, setNewPost] = useState(defaultPost);
-  // console.log(newPost)
+  const [isAddTagOpen, setIsAddTagOpen] = useState(false);
 
   function handleChange(e) {
     setNewPost((prevNewPost) => {
@@ -70,7 +71,7 @@ function NewPostForm({ setPosts, pushHome }) {
         <div className="post-form-bottom">
           <div>
             <select name="mood" onChange={handleChange}>
-              <option value="select">select a mood</option>
+              <option value="none">select a mood</option>
               <option value="happy">happy</option>
               <option value="sad">sad</option>
               <option value="surprised">surprised</option>
@@ -83,8 +84,13 @@ function NewPostForm({ setPosts, pushHome }) {
 
           <div>
             <select name="tag_id" onChange={handleChange}>
-              <option value="select">select a tag</option>
-              {tags & user ? (
+              <option value="none">select a tag</option>
+              {tags.map((tag) => (
+                <option value={tag.id} key={tag.id}>
+                  {tag.tag_name}
+                </option>
+              ))}
+              {/* {tags & user ? (
                 tags.map((tag) => (
                   <option value={tag.id} key={tag.id}>
                     {tag.tag_name}
@@ -92,11 +98,17 @@ function NewPostForm({ setPosts, pushHome }) {
                 ))
               ) : (
                 <option value="loading">loading…</option>
-              )}
+              )} */}
             </select>
           </div>
 
-          <button className="new-tag-button">new tag</button>
+          <button
+            type="button"
+            className="secondary-button"
+            onClick={() => setIsAddTagOpen(true)}
+          >
+            new tag
+          </button>
 
           <button
             className="post-button"
@@ -107,6 +119,12 @@ function NewPostForm({ setPosts, pushHome }) {
           </button>
         </div>
       </form>
+      {isAddTagOpen ? (
+        <AddTagDialog
+          onClose={() => setIsAddTagOpen(false)}
+          setTags={setTags}
+        />
+      ) : null}
     </div>
   );
 }
