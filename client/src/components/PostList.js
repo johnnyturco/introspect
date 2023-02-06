@@ -23,7 +23,12 @@ function PostList() {
       <section>
         {posts
           ? sorted.map((post) => (
-              <Post key={post.id} post={post} isTag={true} />
+              <Post
+                key={post.id}
+                post={post}
+                setPosts={setPosts}
+                isTag={true}
+              />
             ))
           : null}
       </section>

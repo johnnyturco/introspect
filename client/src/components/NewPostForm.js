@@ -4,12 +4,6 @@ import { UserContext } from "../context/UserProvider";
 import { TagsContext } from "../context/TagsProvider";
 import AddTagDialog from "./AddTagDialog";
 
-const defaultPost = {
-  post_text: "",
-  mood: "none",
-  tag_id: "none",
-};
-
 function NewPostForm({ setPosts, pushHome }) {
   const [errors, setErrors] = useState([]);
 
@@ -18,7 +12,12 @@ function NewPostForm({ setPosts, pushHome }) {
 
   let history = useHistory();
 
-  const [newPost, setNewPost] = useState(defaultPost);
+  const [newPost, setNewPost] = useState({
+    post_text: "",
+    mood: "",
+    tag_id: "",
+  });
+
   const [isAddTagOpen, setIsAddTagOpen] = useState(false);
 
   function handleChange(e) {
@@ -50,7 +49,6 @@ function NewPostForm({ setPosts, pushHome }) {
         r.json().then((err) => setErrors(err.errors));
       }
     });
-    setNewPost(defaultPost);
   }
 
   // function handlePushHome() {
@@ -71,7 +69,7 @@ function NewPostForm({ setPosts, pushHome }) {
         <div className="post-form-bottom">
           <div>
             <select name="mood" onChange={handleChange}>
-              <option value="none">select a mood</option>
+              <option value="other">mood</option>
               <option value="happy">happy</option>
               <option value="sad">sad</option>
               <option value="surprised">surprised</option>
@@ -84,21 +82,12 @@ function NewPostForm({ setPosts, pushHome }) {
 
           <div>
             <select name="tag_id" onChange={handleChange}>
-              <option value="none">select a tag</option>
+              <option value="none">tag</option>
               {tags.map((tag) => (
                 <option value={tag.id} key={tag.id}>
                   {tag.tag_name}
                 </option>
               ))}
-              {/* {tags & user ? (
-                tags.map((tag) => (
-                  <option value={tag.id} key={tag.id}>
-                    {tag.tag_name}
-                  </option>
-                ))
-              ) : (
-                <option value="loading">loading…</option>
-              )} */}
             </select>
           </div>
 
@@ -124,6 +113,13 @@ function NewPostForm({ setPosts, pushHome }) {
           onClose={() => setIsAddTagOpen(false)}
           setTags={setTags}
         />
+      ) : null}
+      {errors.length ? (
+        <div>
+          {errors.map((err) => (
+            <p key={err}>{err}</p>
+          ))}
+        </div>
       ) : null}
     </div>
   );

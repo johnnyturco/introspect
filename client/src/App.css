@@ -149,7 +149,7 @@ a:hover::before {
   width: 700px;
 }
 
-.post-form-bottom {
+.post-form-bottom, .edit-form-bottom, .post-bottom {
   display: flex;
   gap: 10px;
   justify-content: space-between;
@@ -157,6 +157,10 @@ a:hover::before {
 }
 
 .post-button {
+  margin-left: auto;
+}
+
+.edit-button{
   margin-left: auto;
 }
 

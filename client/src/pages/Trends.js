@@ -4,7 +4,6 @@ import { PieChart } from "react-minimal-pie-chart";
 
 function Trends() {
   const { posts } = useContext(PostsContext);
-  // console.log(posts);
 
   const allMoods = [
     "happy",
@@ -32,6 +31,8 @@ function Trends() {
     textShadow: "1px 1px 5px #000",
   };
 
+  // ***************************
+
   function isPostWithin(createdDate, withinYear, withinMonth, withinDay) {
     const today = new Date();
     const weekAgo = new Date(
@@ -52,7 +53,7 @@ function Trends() {
   const postsWithinMonth = posts.filter((post) =>
     isPostWithin(post.created_at, 0, 1, 0)
   );
-  console.log(postsWithinDay);
+
   // ***************************
 
   function moodPercentage(postsArray, mood, totalPosts) {
@@ -132,10 +133,7 @@ function Trends() {
         <section>
           <h3>last month</h3>
           <PieChart
-            label={
-              ({ dataEntry }) => dataEntry.title
-              // `${dataEntry.title} ${Math.round(dataEntry.value)}%`
-            }
+            label={({ dataEntry }) => dataEntry.title}
             labelStyle={labelStyles}
             labelPosition={75}
             data={generateChart(postsWithinMonth, moodDataMonth)}
