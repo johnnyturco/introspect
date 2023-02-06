@@ -7,10 +7,10 @@ import AddTagDialog from "./AddTagDialog";
 function NewPostForm({ setPosts, pushHome }) {
   const [errors, setErrors] = useState([]);
 
-  let { user } = useContext(UserContext);
-  let { tags, setTags } = useContext(TagsContext);
+  const { user } = useContext(UserContext);
+  const { tags, setTags } = useContext(TagsContext);
 
-  let history = useHistory();
+  const history = useHistory();
 
   const [newPost, setNewPost] = useState({
     post_text: "",

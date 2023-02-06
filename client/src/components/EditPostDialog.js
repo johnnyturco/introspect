@@ -1,15 +1,20 @@
 import { useState, useContext } from "react";
 import { rootElement } from "..";
 import { createPortal } from "react-dom";
+import { TagsContext } from "../context/TagsProvider";
 
 function EditPostDialog({ onClose, post, setPosts }) {
   const [errors, setErrors] = useState([]);
 
+  const { tags, setTags } = useContext(TagsContext);
+
   const [editPost, setEditPost] = useState({
     post_text: post.post_text,
     mood: post.mood,
-    tag_name: post.tag_name,
+    tag_name: post.tag.tag_name,
   });
+
+  console.log(post.tag.id);
 
   function handleChange(e) {
     setEditPost((prevPost) => {
@@ -54,14 +59,32 @@ function EditPostDialog({ onClose, post, setPosts }) {
         />
         <div className="edit-form-bottom">
           <div>
-            <select name="mood" onChange={handleChange}>
-              <option value="test-mood">test mood</option>
+            <select
+              name="mood"
+              defaultValue={post.mood}
+              onChange={handleChange}
+            >
+              <option value="happy">happy</option>
+              <option value="sad">sad</option>
+              <option value="surprised">surprised</option>
+              <option value="fearful">fearful</option>
+              <option value="angry">angry</option>
+              <option value="disgusted">disgusted</option>
+              <option value="other">other</option>
             </select>
           </div>
 
           <div>
-            <select name="tag_id" onChange={handleChange}>
-              <option value="test-tag">test tag</option>
+            <select
+              name="tag_id"
+              defaultValue={post.tag.id}
+              onChange={handleChange}
+            >
+              {tags.map((tag) => (
+                <option value={tag.id} key={tag.id}>
+                  {tag.tag_name}
+                </option>
+              ))}
             </select>
           </div>
 

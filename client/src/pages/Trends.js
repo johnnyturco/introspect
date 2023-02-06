@@ -98,15 +98,19 @@ function Trends() {
       <main>
         <section>
           <h3>overall</h3>
-          <PieChart
-            label={
-              ({ dataEntry }) => dataEntry.title
-              // `${dataEntry.title} ${Math.round(dataEntry.value)}%`
-            }
-            labelStyle={labelStyles}
-            labelPosition={75}
-            data={generateChart(posts, moodDataOverall)}
-          />
+          {posts.length ? (
+            <PieChart
+              label={
+                ({ dataEntry }) => dataEntry.title
+                // `${dataEntry.title} ${Math.round(dataEntry.value)}%`
+              }
+              labelStyle={labelStyles}
+              labelPosition={75}
+              data={generateChart(posts, moodDataOverall)}
+            />
+          ) : (
+            <p>no data available</p>
+          )}
         </section>
         <section>
           <h3>last day</h3>
@@ -123,21 +127,29 @@ function Trends() {
         </section>
         <section>
           <h3>last week</h3>
-          <PieChart
-            label={({ dataEntry }) => dataEntry.title}
-            labelStyle={labelStyles}
-            labelPosition={75}
-            data={generateChart(postsWithinWeek, moodDataWeek)}
-          />
+          {postsWithinWeek.length ? (
+            <PieChart
+              label={({ dataEntry }) => dataEntry.title}
+              labelStyle={labelStyles}
+              labelPosition={75}
+              data={generateChart(postsWithinWeek, moodDataWeek)}
+            />
+          ) : (
+            <p>no data available</p>
+          )}
         </section>
         <section>
           <h3>last month</h3>
-          <PieChart
-            label={({ dataEntry }) => dataEntry.title}
-            labelStyle={labelStyles}
-            labelPosition={75}
-            data={generateChart(postsWithinMonth, moodDataMonth)}
-          />
+          {postsWithinMonth.length ? (
+            <PieChart
+              label={({ dataEntry }) => dataEntry.title}
+              labelStyle={labelStyles}
+              labelPosition={75}
+              data={generateChart(postsWithinMonth, moodDataMonth)}
+            />
+          ) : (
+            <p>no data available</p>
+          )}
         </section>
       </main>
     </div>
