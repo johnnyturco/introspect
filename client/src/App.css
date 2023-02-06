@@ -18,6 +18,11 @@ h2 {
   /* font-weight: 500; */
 }
 
+h3 {
+  text-align: center;
+  margin-top: 40px;
+}
+
 button {
   background-color: #509cff;
   color: #fff;
@@ -182,7 +187,7 @@ a:hover::before {
 }
 
 .delete-button {
-  background-image: url("../public/delete_icon_white.svg");
+  background-image: url("../public/delete_icon.svg");
   background-repeat: no-repeat;
   background-size: 25px;
   background-position: center;

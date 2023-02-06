@@ -16,8 +16,7 @@ function Post({ post, setPosts, isTag, onPostDelete }) {
       <div className="post-text">{post.post_text}</div>
       <div className="post-mood-tag">
         <div className="post-mood">{post.mood}</div>
-        {/* {isTag ? <div className="post-tag">{post.tag.tag_name}</div> : ""} */}
-        <div className="post-tag">{post.tag.tag_name}</div>
+        {isTag ? <div className="post-tag">{post.tag.tag_name}</div> : ""}
       </div>
       <div className="post-bottom">
         <div className="post-datetime">
