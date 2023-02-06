@@ -1,8 +1,15 @@
 import { useState } from "react";
 import EditPostDialog from "./EditPostDialog";
 
-function Post({ post, setPosts, isTag }) {
+function Post({ post, setPosts, isTag, onPostDelete }) {
   const [isEditOpen, setIsEditOpen] = useState(false);
+
+  function handleDelete() {
+    fetch(`/posts/${post.id}`, {
+      method: "DELETE",
+    });
+    onPostDelete(post.id);
+  }
 
   return (
     <article className="card post">
@@ -22,7 +29,7 @@ function Post({ post, setPosts, isTag }) {
             minute: "numeric",
           })}
         </div>
-        <div>
+        <div className="post-bottom-buttons">
           <button
             type="button"
             className="secondary-button edit-button"
@@ -30,6 +37,11 @@ function Post({ post, setPosts, isTag }) {
           >
             edit
           </button>
+          <button
+            type="button"
+            className="secondary-button delete-button"
+            onClick={handleDelete}
+          ></button>
         </div>
       </div>
       {isEditOpen ? (

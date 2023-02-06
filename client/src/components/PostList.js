@@ -14,6 +14,11 @@ function PostList() {
     [posts]
   );
 
+  function handlePostDelete(id) {
+    const updatedPosts = posts.filter((post) => post.id !== id);
+    setPosts(updatedPosts);
+  }
+
   return (
     <>
       <section>
@@ -28,6 +33,7 @@ function PostList() {
                 post={post}
                 setPosts={setPosts}
                 isTag={true}
+                onPostDelete={handlePostDelete}
               />
             ))
           : null}

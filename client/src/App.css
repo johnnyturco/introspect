@@ -176,6 +176,18 @@ a:hover::before {
   background-color: #3c3d41;
 }
 
+.post-bottom-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.delete-button {
+  background-image: url("../public/delete_icon_white.svg");
+  background-repeat: no-repeat;
+  background-size: 25px;
+  background-position: center;
+}
+
 .post > div {
   padding: 10px;
 }
