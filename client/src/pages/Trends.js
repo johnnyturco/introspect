@@ -67,6 +67,7 @@ function Trends() {
   const moodDataDay = [];
   const moodDataWeek = [];
   const moodDataMonth = [];
+
   function generateChart(postsArray, timePeriod) {
     const totalPosts = postsArray.length;
     const applicableMoods = allMoods.filter(

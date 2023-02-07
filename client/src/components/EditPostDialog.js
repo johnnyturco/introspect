@@ -3,7 +3,7 @@ import { rootElement } from "..";
 import { createPortal } from "react-dom";
 import { TagsContext } from "../context/TagsProvider";
 
-function EditPostDialog({ onClose, post, setPosts }) {
+function EditPostDialog({ onClose, post, posts, setPosts }) {
   const [errors, setErrors] = useState([]);
 
   const { tags, setTags } = useContext(TagsContext);
@@ -14,14 +14,19 @@ function EditPostDialog({ onClose, post, setPosts }) {
     tag_name: post.tag.tag_name,
   });
 
-  console.log(post.tag.id);
-
   function handleChange(e) {
     setEditPost((prevPost) => {
       return {
         ...prevPost,
         [e.target.name]: e.target.value,
       };
+    });
+  }
+
+  function handleUpdateRender(updatedPostFromServer) {
+    setPosts(posts.filter((post) => post.id !== updatedPostFromServer.id));
+    setPosts((prevPosts) => {
+      return [...prevPosts, updatedPostFromServer];
     });
   }
 
@@ -37,9 +42,7 @@ function EditPostDialog({ onClose, post, setPosts }) {
     }).then((r) => {
       if (r.ok) {
         r.json().then((updatedPostFromServer) =>
-          setPosts((prevPosts) => {
-            return [...prevPosts, updatedPostFromServer];
-          })
+          handleUpdateRender(updatedPostFromServer)
         );
         onClose();
       } else {

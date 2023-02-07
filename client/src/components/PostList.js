@@ -31,6 +31,7 @@ function PostList() {
               <Post
                 key={post.id}
                 post={post}
+                posts={posts}
                 setPosts={setPosts}
                 isTag={true}
                 onPostDelete={handlePostDelete}

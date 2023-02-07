@@ -68,8 +68,14 @@ function NewPostForm({ setPosts, pushHome }) {
         />
         <div className="post-form-bottom">
           <div>
-            <select name="mood" onChange={handleChange}>
-              <option value="other">mood</option>
+            <select
+              name="mood"
+              defaultValue={"default"}
+              onChange={handleChange}
+            >
+              <option value="default" disabled>
+                mood
+              </option>
               <option value="happy">happy</option>
               <option value="sad">sad</option>
               <option value="surprised">surprised</option>
@@ -81,8 +87,14 @@ function NewPostForm({ setPosts, pushHome }) {
           </div>
 
           <div>
-            <select name="tag_id" onChange={handleChange}>
-              <option value="none">tag</option>
+            <select
+              name="tag_id"
+              defaultValue={"default"}
+              onChange={handleChange}
+            >
+              <option value="default" disabled>
+                tag
+              </option>
               {tags.map((tag) => (
                 <option value={tag.id} key={tag.id}>
                   {tag.tag_name}

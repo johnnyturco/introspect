@@ -1,7 +1,7 @@
 import { useState } from "react";
 import EditPostDialog from "./EditPostDialog";
 
-function Post({ post, setPosts, isTag, onPostDelete }) {
+function Post({ post, posts, setPosts, isTag, onPostDelete }) {
   const [isEditOpen, setIsEditOpen] = useState(false);
 
   function handleDelete() {
@@ -47,6 +47,7 @@ function Post({ post, setPosts, isTag, onPostDelete }) {
         <EditPostDialog
           onClose={() => setIsEditOpen(false)}
           post={post}
+          posts={posts}
           setPosts={setPosts}
         />
       ) : null}
