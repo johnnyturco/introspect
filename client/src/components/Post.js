@@ -1,15 +1,10 @@
 import { useState } from "react";
 import EditPostDialog from "./EditPostDialog";
+import DeleteConfirmationDialog from "./DeleteConfirmationDialog";
 
-function Post({ post, posts, setPosts, isTag, onPostDelete, index }) {
+function Post({ post, posts, setPosts, isTag, onPostDelete }) {
   const [isEditOpen, setIsEditOpen] = useState(false);
-
-  function handleDelete() {
-    fetch(`/posts/${post.id}`, {
-      method: "DELETE",
-    });
-    onPostDelete(post.id);
-  }
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
   return (
     <div className="card-container">
@@ -40,7 +35,7 @@ function Post({ post, posts, setPosts, isTag, onPostDelete, index }) {
             <button
               type="button"
               className="secondary-button delete-button"
-              onClick={handleDelete}
+              onClick={() => setIsDeleteOpen(true)}
             ></button>
           </div>
         </div>
@@ -48,8 +43,14 @@ function Post({ post, posts, setPosts, isTag, onPostDelete, index }) {
           <EditPostDialog
             onClose={() => setIsEditOpen(false)}
             post={post}
-            posts={posts}
             setPosts={setPosts}
+          />
+        ) : null}
+        {isDeleteOpen ? (
+          <DeleteConfirmationDialog
+            onClose={() => setIsDeleteOpen(false)}
+            onPostDelete={onPostDelete}
+            post={post}
           />
         ) : null}
       </article>

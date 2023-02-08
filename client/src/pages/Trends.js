@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { PostsContext } from "../context/PostsProvider";
 import { PieChart } from "react-minimal-pie-chart";
+import { subDays, subMonths, isWithinInterval } from "date-fns";
 
 function Trends() {
   const { posts } = useContext(PostsContext);
@@ -33,27 +34,48 @@ function Trends() {
 
   // ***************************
 
-  function isPostWithin(createdDate, withinYear, withinMonth, withinDay) {
-    const today = new Date();
-    const weekAgo = new Date(
-      today.getFullYear() - withinYear,
-      today.getMonth() - withinMonth,
-      today.getDate() - withinDay
-    );
-    const postDate = new Date(createdDate);
-    return postDate <= today && postDate > weekAgo;
-  }
+  // function isPostWithin(createdDate, withinYear, withinMonth, withinDay) {
+  //   const today = new Date();
+  //   const daysAgo = new Date(
+  //     today.getFullYear() - withinYear,
+  //     today.getMonth() - withinMonth,
+  //     today.getDate() - withinDay
+  //   );
+  //   const postDate = new Date(createdDate);
+  //   return postDate <= today && postDate > daysAgo;
+  // }
 
+  // const postsWithinDay = posts.filter((post) =>
+  //   isPostWithin(post.created_at, 0, 0, 0)
+  // );
+  // const postsWithinWeek = posts.filter((post) =>
+  //   isPostWithin(post.created_at, 0, 0, 7)
+  // );
+  // const postsWithinMonth = posts.filter((post) =>
+  //   isPostWithin(post.created_at, 0, 1, 0)
+  // );
+
+  // ***************************
+
+  // Refactor of date calculations with date-fns
   const postsWithinDay = posts.filter((post) =>
-    isPostWithin(post.created_at, 0, 0, 0)
+    isWithinInterval(new Date(post.created_at), {
+      start: subDays(new Date(), 1),
+      end: new Date(),
+    })
   );
   const postsWithinWeek = posts.filter((post) =>
-    isPostWithin(post.created_at, 0, 0, 7)
+    isWithinInterval(new Date(post.created_at), {
+      start: subDays(new Date(), 7),
+      end: new Date(),
+    })
   );
   const postsWithinMonth = posts.filter((post) =>
-    isPostWithin(post.created_at, 0, 1, 0)
+    isWithinInterval(new Date(post.created_at), {
+      start: subMonths(new Date(), 1),
+      end: new Date(),
+    })
   );
-
   // ***************************
 
   function moodPercentage(postsArray, mood, totalPosts) {
@@ -94,10 +116,10 @@ function Trends() {
   }
 
   return (
-    <div className="trends fade-in-fwd">
+    <div className="trends">
       <h2>trends</h2>
-      <main>
-        <section>
+      <main className="card-container">
+        <section className="fade-in-fwd-up">
           <h3>overall</h3>
           {posts.length ? (
             <PieChart
@@ -113,7 +135,7 @@ function Trends() {
             <p>no data available</p>
           )}
         </section>
-        <section>
+        <section className="fade-in-fwd-up">
           <h3>last day</h3>
           {postsWithinDay.length ? (
             <PieChart
@@ -126,7 +148,7 @@ function Trends() {
             <p>no data available</p>
           )}
         </section>
-        <section>
+        <section className="fade-in-fwd-up">
           <h3>last week</h3>
           {postsWithinWeek.length ? (
             <PieChart
@@ -139,7 +161,7 @@ function Trends() {
             <p>no data available</p>
           )}
         </section>
-        <section>
+        <section className="fade-in-fwd-up">
           <h3>last month</h3>
           {postsWithinMonth.length ? (
             <PieChart

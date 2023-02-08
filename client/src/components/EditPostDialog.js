@@ -3,7 +3,7 @@ import { rootElement } from "..";
 import { createPortal } from "react-dom";
 import { TagsContext } from "../context/TagsProvider";
 
-function EditPostDialog({ onClose, post, posts, setPosts }) {
+function EditPostDialog({ onClose, post, setPosts }) {
   const [errors, setErrors] = useState([]);
 
   const { tags, setTags } = useContext(TagsContext);

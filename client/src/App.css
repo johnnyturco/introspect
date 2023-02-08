@@ -23,6 +23,10 @@ h3 {
   margin-top: 40px;
 }
 
+h4 {
+  text-align: center;
+}
+
 button {
   background-color: #509cff;
   color: #fff;
