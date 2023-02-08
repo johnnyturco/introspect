@@ -1,12 +1,31 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { rootElement } from "..";
 import { createPortal } from "react-dom";
 
 function AddTagDialog({ onClose, setTags }) {
   const [tagName, setTagName] = useState("");
+  const dialogRef = useRef();
+  const backdropRef = useRef();
+
+  function handleClose() {
+    if (dialogRef.current) {
+      // trigger close animation
+      dialogRef.current.classList.remove("fade-in-foward-up");
+      dialogRef.current.classList.add("fade-out-down");
+      backdropRef.current.classList.remove("fade-in-fwd");
+      backdropRef.current.classList.add("fade-out");
+
+      // remove element once animation is finished
+      dialogRef.current.addEventListener("animationend", () => {
+        onClose();
+      });
+    } else {
+      onClose();
+    }
+  }
 
   function handleAddTag() {
-    onClose();
+    handleClose();
 
     fetch(`/tags`, {
       method: "POST",
@@ -26,8 +45,8 @@ function AddTagDialog({ onClose, setTags }) {
   }
 
   return createPortal(
-    <div className="back-drop">
-      <div className="dialog">
+    <div className="back-drop fade-in-fwd" ref={backdropRef}>
+      <div className="dialog fade-in-fwd-up" ref={dialogRef}>
         <h4>add tag</h4>
         <input
           type="text"
@@ -38,7 +57,7 @@ function AddTagDialog({ onClose, setTags }) {
           autoFocus
         />
         <div className="dialog-buttons">
-          <button className="secondary-button" onClick={onClose}>
+          <button className="secondary-button" onClick={handleClose}>
             cancel
           </button>
           <button onClick={handleAddTag}>add</button>

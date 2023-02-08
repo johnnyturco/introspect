@@ -24,9 +24,11 @@ function EditPostDialog({ onClose, post, posts, setPosts }) {
   }
 
   function handleUpdateRender(updatedPostFromServer) {
-    setPosts(posts.filter((post) => post.id !== updatedPostFromServer.id));
-    setPosts((prevPosts) => {
-      return [...prevPosts, updatedPostFromServer];
+    setPosts((prev) => {
+      const filtered = prev.filter(
+        (post) => post.id !== updatedPostFromServer.id
+      );
+      return [...filtered, updatedPostFromServer];
     });
   }
 
