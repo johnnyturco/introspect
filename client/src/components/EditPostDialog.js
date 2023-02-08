@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useRef, useState, useContext } from "react";
 import { rootElement } from "..";
 import { createPortal } from "react-dom";
 import { TagsContext } from "../context/TagsProvider";
@@ -13,6 +13,26 @@ function EditPostDialog({ onClose, post, posts, setPosts }) {
     mood: post.mood,
     tag_name: post.tag.tag_name,
   });
+
+  const dialogRef = useRef();
+  const backdropRef = useRef();
+
+  function handleClose() {
+    if (dialogRef.current) {
+      // trigger close animation
+      dialogRef.current.classList.remove("fade-in-foward-up");
+      dialogRef.current.classList.add("fade-out-down");
+      backdropRef.current.classList.remove("fade-in-fwd");
+      backdropRef.current.classList.add("fade-out");
+
+      // remove element once animation is finished
+      dialogRef.current.addEventListener("animationend", () => {
+        onClose();
+      });
+    } else {
+      onClose();
+    }
+  }
 
   function handleChange(e) {
     setEditPost((prevPost) => {
@@ -34,6 +54,7 @@ function EditPostDialog({ onClose, post, posts, setPosts }) {
 
   function handleUpdatePost(e) {
     e.preventDefault();
+    handleClose();
 
     fetch(`/posts/${post.id}`, {
       method: "PATCH",
@@ -46,7 +67,6 @@ function EditPostDialog({ onClose, post, posts, setPosts }) {
         r.json().then((updatedPostFromServer) =>
           handleUpdateRender(updatedPostFromServer)
         );
-        onClose();
       } else {
         r.json().then((err) => setErrors(err.errors));
       }
@@ -54,8 +74,8 @@ function EditPostDialog({ onClose, post, posts, setPosts }) {
   }
 
   return createPortal(
-    <div className="back-drop">
-      <div className="dialog">
+    <div className="back-drop fade-in-fwd" ref={backdropRef}>
+      <div className="dialog fade-in-fwd-up" ref={dialogRef}>
         <h4>edit post</h4>
         <textarea
           name="post_text"
@@ -93,7 +113,7 @@ function EditPostDialog({ onClose, post, posts, setPosts }) {
             </select>
           </div>
 
-          <button className="secondary-button" onClick={onClose}>
+          <button className="secondary-button" onClick={handleClose}>
             cancel
           </button>
 

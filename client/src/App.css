@@ -61,7 +61,7 @@ textarea {
   width: 100%;
   min-height: 75px;
   border-radius: 10px;
-  border-color: #686a6d;
+  border: 1px solid #686a6d;
   padding: 10px;
 }
 
@@ -75,7 +75,7 @@ select {
   background-repeat: no-repeat;
   background-color: #4c4e54;
   border-radius: 10px;
-  border-color: #686a6d;
+  border: 1px solid #686a6d;
   color: #fff;
   height: 35px;
   width: 125px;
