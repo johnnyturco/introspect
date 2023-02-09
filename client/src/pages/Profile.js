@@ -1,8 +1,13 @@
 import { useState, useContext } from "react";
 import { UserContext } from "../context/UserProvider";
+import { useHistory } from "react-router-dom";
 
 function Profile() {
+  const [errors, setErrors] = useState([]);
+
   let { user } = useContext(UserContext);
+
+  let history = useHistory();
 
   const [credentials, setCredentials] = useState({
     first_name: user.first_name,
@@ -11,7 +16,6 @@ function Profile() {
     password: "",
     password_confirmation: "",
   });
-  // console.log(credentials)
 
   function handleChange(e) {
     setCredentials((prevCredentials) => {
@@ -25,15 +29,20 @@ function Profile() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    fetch(`/users`, {
+    fetch(`/users/${user.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(credentials),
-    })
-      .then((r) => r.json)
-      .then((data) => console.log(data));
+    }).then((r) => {
+      if (r.ok) {
+        // r.json().then((updatedUser) => console.log(updatedUser));
+        history.push("/timeline");
+      } else {
+        r.json().then((err) => setErrors(err.errors));
+      }
+    });
   }
 
   return (
@@ -79,6 +88,14 @@ function Profile() {
 
         <button type="submit">update</button>
       </form>
+
+      {errors.length ? (
+        <div>
+          {errors.map((err) => (
+            <p key={err}>{err}</p>
+          ))}
+        </div>
+      ) : null}
     </main>
   );
 }

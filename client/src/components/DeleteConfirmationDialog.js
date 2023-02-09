@@ -7,26 +7,32 @@ function DeleteConfirmationDialog({ onClose, onPostDelete, post }) {
   const backdropRef = useRef();
 
   function handleClose() {
-    if (dialogRef.current) {
-      // trigger close animation
-      dialogRef.current.classList.remove("fade-in-foward-up");
-      dialogRef.current.classList.add("fade-out-down");
-      backdropRef.current.classList.remove("fade-in-fwd");
-      backdropRef.current.classList.add("fade-out");
+    const animationPromise = new Promise((resolve) => {
+      if (dialogRef.current) {
+        // trigger close animation
+        dialogRef.current.classList.remove("fade-in-foward-up");
+        dialogRef.current.classList.add("fade-out-down");
+        backdropRef.current.classList.remove("fade-in-fwd");
+        backdropRef.current.classList.add("fade-out");
 
-      // remove element once animation is finished
-      dialogRef.current.addEventListener("animationend", () => {
+        // remove element once animation is finished
+        dialogRef.current.addEventListener("animationend", () => {
+          onClose();
+          resolve();
+          console.log("a");
+        });
+      } else {
         onClose();
-        console.log("a");
-      });
-    } else {
-      onClose();
-      console.log("b");
-    }
+        resolve();
+        console.log("b");
+      }
+    });
+
+    return animationPromise;
   }
 
-  function handleDelete() {
-    handleClose();
+  async function handleDelete() {
+    await handleClose();
     console.log("c");
 
     fetch(`/posts/${post.id}`, {

@@ -29,26 +29,25 @@ function NewPostForm({ setPosts, pushHome }) {
     });
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
-    fetch(`/posts`, {
+    const r = await fetch(`/posts`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(newPost),
-    }).then((r) => {
-      if (r.ok) {
-        r.json().then((newPostFromServer) =>
-          setPosts((prevPosts) => {
-            return [...prevPosts, newPostFromServer];
-          })
-        );
-      } else {
-        r.json().then((err) => setErrors(err.errors));
-      }
     });
+    if (r.ok) {
+      const newPostFromServer = await r.json();
+      setPosts((prevPosts) => {
+        return [...prevPosts, newPostFromServer];
+      });
+    } else {
+      const err = await r.json();
+      setErrors(err.errors);
+    }
   }
 
   // function handlePushHome() {

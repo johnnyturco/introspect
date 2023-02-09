@@ -169,7 +169,7 @@ a:hover::before {
   width: 700px;
 }
 
-.post-form-bottom, .edit-form-bottom, .post-bottom {
+.post-form-bottom, .edit-form-bottom, .post-bottom, .sort-filter-select {
   display: flex;
   gap: 10px;
   justify-content: space-between;
