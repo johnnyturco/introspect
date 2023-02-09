@@ -56,16 +56,7 @@ function PostList() {
       </section>
       <h2>timeline</h2>
 
-      <div className="post-form-bottom">
-        <select
-          className="sort-select"
-          name="sort"
-          onChange={(e) => setSelectedSort(e.target.value)}
-        >
-          <option value="descending">descending</option>
-          <option value="ascending">ascending</option>
-        </select>
-
+      <div className="sort-filter-select">
         <select
           name="filter"
           onChange={(e) => setSelectedFilter(e.target.value)}
@@ -74,6 +65,15 @@ function PostList() {
           <option value="day">last day</option>
           <option value="week">last week</option>
           <option value="month">last month</option>
+        </select>
+
+        <select
+          className="sort-select"
+          name="sort"
+          onChange={(e) => setSelectedSort(e.target.value)}
+        >
+          <option value="descending">descending</option>
+          <option value="ascending">ascending</option>
         </select>
       </div>
 
