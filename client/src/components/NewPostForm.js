@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { UserContext } from "../context/UserProvider";
 import { TagsContext } from "../context/TagsProvider";
 import AddTagDialog from "./AddTagDialog";
+import TagsEditDialog from "./TagsEditDialog";
 
 function NewPostForm({ setPosts, pushHome }) {
   const [errors, setErrors] = useState([]);
@@ -19,6 +20,7 @@ function NewPostForm({ setPosts, pushHome }) {
   });
 
   const [isAddTagOpen, setIsAddTagOpen] = useState(false);
+  const [isTagsEditOpen, setIsTagsEditOpen] = useState(false);
 
   function handleChange(e) {
     setNewPost((prevNewPost) => {
@@ -111,6 +113,12 @@ function NewPostForm({ setPosts, pushHome }) {
           </button>
 
           <button
+            type="button"
+            className="secondary-button settings-button"
+            onClick={() => setIsTagsEditOpen(true)}
+          ></button>
+
+          <button
             className="post-button"
             type="submit"
             // onClick={handlePushHome}
@@ -125,6 +133,15 @@ function NewPostForm({ setPosts, pushHome }) {
           setTags={setTags}
         />
       ) : null}
+
+      {isTagsEditOpen ? (
+        <TagsEditDialog
+          onClose={() => setIsTagsEditOpen(false)}
+          tags={tags}
+          setTags={setTags}
+        />
+      ) : null}
+
       {errors.length ? (
         <div>
           {errors.map((err) => (

@@ -9,13 +9,11 @@ function AddTagDialog({ onClose, setTags }) {
 
   function handleClose() {
     if (dialogRef.current) {
-      // trigger close animation
       dialogRef.current.classList.remove("fade-in-foward-up");
       dialogRef.current.classList.add("fade-out-down");
       backdropRef.current.classList.remove("fade-in-fwd");
       backdropRef.current.classList.add("fade-out");
 
-      // remove element once animation is finished
       dialogRef.current.addEventListener("animationend", () => {
         onClose();
       });

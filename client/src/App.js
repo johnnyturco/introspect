@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import { UserProvider } from "./context/UserProvider";
 import { PostsProvider } from "./context/PostsProvider";
 import { TagsProvider } from "./context/TagsProvider";
@@ -38,9 +38,6 @@ function App() {
             <Route path="/signup">
               <SignUp />
             </Route>
-            {/* <Route path="/trends">
-              <Trends />
-            </Route> */}
             <Route exact path="/">
               <Login />
             </Route>

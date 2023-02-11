@@ -1,4 +1,4 @@
-import { useRef, useState, useContext } from "react";
+import { useRef } from "react";
 import { rootElement } from "..";
 import { createPortal } from "react-dom";
 
@@ -9,22 +9,18 @@ function DeleteConfirmationDialog({ onClose, onPostDelete, post }) {
   function handleClose() {
     const animationPromise = new Promise((resolve) => {
       if (dialogRef.current) {
-        // trigger close animation
         dialogRef.current.classList.remove("fade-in-foward-up");
         dialogRef.current.classList.add("fade-out-down");
         backdropRef.current.classList.remove("fade-in-fwd");
         backdropRef.current.classList.add("fade-out");
 
-        // remove element once animation is finished
         dialogRef.current.addEventListener("animationend", () => {
           onClose();
           resolve();
-          console.log("a");
         });
       } else {
         onClose();
         resolve();
-        console.log("b");
       }
     });
 
@@ -33,7 +29,6 @@ function DeleteConfirmationDialog({ onClose, onPostDelete, post }) {
 
   async function handleDelete() {
     await handleClose();
-    console.log("c");
 
     fetch(`/posts/${post.id}`, {
       method: "DELETE",

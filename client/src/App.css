@@ -149,7 +149,7 @@ a::before {
   width: 100%;
   height: 5px;
   z-index: -1;
-  transition: all .2s ease-in-out;
+  transition: all .15s ease-in-out;
 }
 
 a:hover::before {
@@ -201,11 +201,29 @@ a:hover::before {
   gap: 10px;
 }
 
+.edit-button, .delete-button, .settings-button, .done-button {
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.edit-button {
+  background-image: url("../public/edit_icon.svg");
+  background-size: 25px;
+}
+
 .delete-button {
   background-image: url("../public/delete_icon.svg");
-  background-repeat: no-repeat;
   background-size: 25px;
-  background-position: center;
+}
+
+.settings-button {
+  background-image: url("../public/settings_icon.svg");
+  background-size: 18px;
+}
+
+.done-button {
+  background-image: url("../public/done_icon.svg");
+  background-size: 25px;
 }
 
 .post > div {
@@ -232,7 +250,7 @@ a:hover::before {
   font-style: italic;
 }
 
-/* PROFILE, LOGIN, & SIGNUP */
+/* PROFILE, EDIT TAGS DIALOG, LOGIN, & SIGNUP */
 .profile-container, .login-container, .signup-container {
   display: flex;
   flex-direction: column;
@@ -243,6 +261,11 @@ a:hover::before {
   display: flex;
   flex-direction: column;
   width: 300px;
+}
+
+.edit-tags-form {
+  display: flex;
+  gap: 10px;
 }
 
 /* ANIMATIONS */

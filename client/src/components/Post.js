@@ -29,9 +29,7 @@ function Post({ post, posts, setPosts, isTag, onPostDelete }) {
               type="button"
               className="secondary-button edit-button"
               onClick={() => setIsEditOpen(true)}
-            >
-              edit
-            </button>
+            ></button>
             <button
               type="button"
               className="secondary-button delete-button"
