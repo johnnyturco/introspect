@@ -5,9 +5,15 @@ import TagCategory from "../components/TagCategory";
 const Tags = () => {
   const { tags } = useContext(TagsContext);
 
-  const [currentTagId, setCurrentTagId] = useState(tags[0].id);
+  let initialTag: number | null;
+  if (tags.length) {
+    initialTag = tags[0].id;
+  } else {
+    initialTag = null;
+  }
 
-  // const filteredTag = tags.find((tag) => tag.id === parseInt(currentTagId));
+  const [currentTagId, setCurrentTagId] = useState(initialTag);
+
   const filteredTag = tags.find((tag) => tag.id === currentTagId);
 
   return (

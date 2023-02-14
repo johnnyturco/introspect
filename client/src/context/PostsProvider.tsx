@@ -26,14 +26,14 @@ interface PostsProviderProps {
 }
 
 const PostsProvider: React.FC<PostsProviderProps> = ({ children }) => {
-  const { userLoaded } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const [posts, setPosts] = useState<Post[]>([]);
 
   const [postsLoaded, setPostsLoaded] = useState(false);
 
   useEffect(() => {
-    if (userLoaded) {
+    if (user) {
       fetch(`/posts`)
         .then((r) => r.json())
         .then((postsFromServer) => {
@@ -41,7 +41,7 @@ const PostsProvider: React.FC<PostsProviderProps> = ({ children }) => {
           setPostsLoaded(true);
         });
     }
-  }, [userLoaded]);
+  }, [user]);
 
   return (
     <PostsContext.Provider value={{ posts, setPosts, postsLoaded }}>

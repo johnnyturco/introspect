@@ -26,14 +26,14 @@ interface TagsProviderProps {
 }
 
 const TagsProvider: React.FC<TagsProviderProps> = ({ children }) => {
-  const { userLoaded } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const [tags, setTags] = useState<TagWithPosts[]>([]);
 
   const [tagsLoaded, setTagsLoaded] = useState(false);
 
   useEffect(() => {
-    if (userLoaded) {
+    if (user) {
       fetch(`/tags`)
         .then((r) => r.json())
         .then((tagsFromServer) => {
@@ -41,7 +41,7 @@ const TagsProvider: React.FC<TagsProviderProps> = ({ children }) => {
           setTagsLoaded(true);
         });
     }
-  }, [userLoaded]);
+  }, [user]);
 
   return (
     <TagsContext.Provider value={{ tags, setTags, tagsLoaded }}>
