@@ -18,7 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_30_175742) do
     t.text "post_text"
     t.string "mood"
     t.bigint "user_id", null: false
-    t.bigint "tag_id", null: false
+    t.bigint "tag_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["tag_id"], name: "index_posts_on_tag_id"
