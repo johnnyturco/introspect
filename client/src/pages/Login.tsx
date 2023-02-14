@@ -23,24 +23,25 @@ const Login = () => {
     });
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    fetch(`/login`, {
+    const r = await fetch(`/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(credentials),
-    }).then((r) => {
-      if (r.ok) {
-        r.json().then((currentUser) => setUser(currentUser));
-        setUserLoaded(true);
-        history.push("/timeline");
-      } else {
-        r.json().then((err) => setErrors(err.errors));
-      }
     });
+    if (r.ok) {
+      const currentUser = await r.json();
+      setUser(currentUser);
+      setUserLoaded(true);
+      history.push("/timeline");
+    } else {
+      const err = await r.json();
+      setErrors(err.errors);
+    }
   }
 
   if (user) {

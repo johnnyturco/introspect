@@ -17,37 +17,34 @@ const EditTagRow: React.FC<EditTagRowProps> = ({ tag }) => {
     fetch(`/tags/${tag.id}`, {
       method: "DELETE",
     });
-
     const updatedTags = tags.filter((oneTag) => oneTag.id !== tag.id);
     setTags(updatedTags);
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    fetch(`/tags/${tag.id}`, {
+    const r = await fetch(`/tags/${tag.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ tag_name: tagName }),
-    }).then((r) => {
-      if (r.ok) {
-        r.json().then((updatedTag) => {
-          const updatedTagsList = tags.map((oneTag) => {
-            if (oneTag.id === tag.id) {
-              return updatedTag;
-            } else {
-              return oneTag;
-            }
-          });
-          setTags(updatedTagsList);
-        });
-      } else {
-        r.json().then((err) => setErrors(err.errors));
-      }
     });
-
+    if (r.ok) {
+      const updatedTag = await r.json();
+      const updatedTagsList = tags.map((oneTag) => {
+        if (oneTag.id === tag.id) {
+          return updatedTag;
+        } else {
+          return oneTag;
+        }
+      });
+      setTags(updatedTagsList);
+    } else {
+      const err = await r.json();
+      setErrors(err.errors);
+    }
     setIsEditing(false);
   }
 

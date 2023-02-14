@@ -26,23 +26,24 @@ const SignUp = () => {
     });
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    fetch(`/signup`, {
+    const r = await fetch(`/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(credentials),
-    }).then((r) => {
-      if (r.ok) {
-        r.json().then((currentUser) => setUser(currentUser));
-        history.push("/timeline");
-      } else {
-        r.json().then((err) => setErrors(err.errors));
-      }
     });
+    if (r.ok) {
+      const currentUser = await r.json();
+      setUser(currentUser);
+      history.push("/timeline");
+    } else {
+      const err = await r.json();
+      setErrors(err.errors);
+    }
   }
 
   return (

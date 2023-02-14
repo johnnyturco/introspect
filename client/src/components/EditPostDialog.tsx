@@ -63,25 +63,24 @@ const EditPostDialog: React.FC<EditPostDialogProps> = ({
     });
   }
 
-  function handleUpdatePost(e: React.FormEvent) {
+  async function handleUpdatePost(e: React.FormEvent) {
     e.preventDefault();
     handleClose();
 
-    fetch(`/posts/${post.id}`, {
+    const r = await fetch(`/posts/${post.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(editPost),
-    }).then((r) => {
-      if (r.ok) {
-        r.json().then((updatedPostFromServer) =>
-          handleUpdateRender(updatedPostFromServer)
-        );
-      } else {
-        r.json().then((err) => setErrors(err.errors));
-      }
     });
+    if (r.ok) {
+      const updatedPostFromServer = await r.json();
+      handleUpdateRender(updatedPostFromServer);
+    } else {
+      const err = await r.json();
+      setErrors(err.errors);
+    }
   }
 
   return createPortal(

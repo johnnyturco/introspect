@@ -28,10 +28,10 @@ const AddTagDialog: React.FC<AddTagDialogProps> = ({ onClose, setTags }) => {
     }
   }
 
-  function handleAddTag() {
+  async function handleAddTag() {
     handleClose();
 
-    fetch(`/tags`, {
+    const r = await fetch(`/tags`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -39,13 +39,11 @@ const AddTagDialog: React.FC<AddTagDialogProps> = ({ onClose, setTags }) => {
       body: JSON.stringify({
         tag_name: tagName,
       }),
-    })
-      .then((r) => r.json())
-      .then((newTagFromServer) =>
-        setTags((prevTags) => {
-          return [...prevTags, newTagFromServer];
-        })
-      );
+    });
+    const newTagFromServer = await r.json();
+    setTags((prevTags) => {
+      return [...prevTags, newTagFromServer];
+    });
   }
 
   return createPortal(

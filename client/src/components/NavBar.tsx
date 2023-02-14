@@ -7,16 +7,15 @@ const NavBar = () => {
 
   const history = useHistory();
 
-  function handleLogout(e: React.MouseEvent) {
+  async function handleLogout(e: React.MouseEvent) {
     e.preventDefault();
-    fetch(`/logout`, {
+    const r = await fetch(`/logout`, {
       method: "DELETE",
-    }).then((r) => {
-      if (r.ok) {
-        setUser(null);
-        history.push("/");
-      }
     });
+    if (r.ok) {
+      setUser(null);
+      history.push("/");
+    }
   }
 
   return (

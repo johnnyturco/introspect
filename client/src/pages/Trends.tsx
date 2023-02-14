@@ -33,7 +33,8 @@ const Trends = () => {
     textShadow: "1px 1px 5px #000",
   };
 
-  // ***************************
+  // ***************************  REFACTORED CODE BELOW
+  //                              COMMENTED CODE FOR DEMONSTRATION ONLY
 
   // function isPostWithin(createdDate, withinYear, withinMonth, withinDay) {
   //   const today = new Date();
