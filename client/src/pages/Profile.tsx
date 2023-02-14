@@ -2,22 +2,22 @@ import { useState, useContext } from "react";
 import { UserContext } from "../context/UserProvider";
 import { useHistory } from "react-router-dom";
 
-function Profile() {
+const Profile = () => {
   const [errors, setErrors] = useState([]);
 
-  let { user } = useContext(UserContext);
+  const { user, userLoaded } = useContext(UserContext);
 
-  let history = useHistory();
+  const history = useHistory();
 
   const [credentials, setCredentials] = useState({
-    first_name: user.first_name,
-    last_name: user.last_name,
-    email: user.email,
+    first_name: user?.first_name,
+    last_name: user?.last_name,
+    email: user?.email,
     password: "",
     password_confirmation: "",
   });
 
-  function handleChange(e) {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setCredentials((prevCredentials) => {
       return {
         ...prevCredentials,
@@ -26,10 +26,10 @@ function Profile() {
     });
   }
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    fetch(`/users/${user.id}`, {
+    fetch(`/users/${user!.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -45,7 +45,7 @@ function Profile() {
     });
   }
 
-  return (
+  return userLoaded ? (
     <main className="profile-container fade-in-fwd">
       <h2>update profile</h2>
       <form className="profile-form card" onSubmit={handleSubmit}>
@@ -97,7 +97,9 @@ function Profile() {
         </div>
       ) : null}
     </main>
+  ) : (
+    <p>user not found</p>
   );
-}
+};
 
 export default Profile;

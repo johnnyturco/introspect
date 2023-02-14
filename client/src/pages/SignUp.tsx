@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { UserContext } from "../context/UserProvider";
 import { useHistory } from "react-router-dom";
 
-function SignUp() {
+const SignUp = () => {
   const [errors, setErrors] = useState([]);
 
   let { setUser } = useContext(UserContext);
@@ -17,7 +17,7 @@ function SignUp() {
 
   let history = useHistory();
 
-  function handleChange(e) {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setCredentials((prevCredentials) => {
       return {
         ...prevCredentials,
@@ -26,7 +26,7 @@ function SignUp() {
     });
   }
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     fetch(`/signup`, {
@@ -42,7 +42,7 @@ function SignUp() {
       } else {
         r.json().then((err) => setErrors(err.errors));
       }
-    }, []);
+    });
   }
 
   return (
@@ -98,6 +98,6 @@ function SignUp() {
       ) : null}
     </main>
   );
-}
+};
 
 export default SignUp;

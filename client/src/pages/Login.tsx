@@ -2,10 +2,10 @@ import { useContext, useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { UserContext } from "../context/UserProvider";
 
-function Login() {
+const Login = () => {
   const [errors, setErrors] = useState([]);
 
-  let { user, setUser } = useContext(UserContext);
+  let { user, setUser, setUserLoaded } = useContext(UserContext);
 
   let history = useHistory();
 
@@ -14,7 +14,7 @@ function Login() {
     password: "",
   });
 
-  function handleChange(e) {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setCredentials((prevCredentials) => {
       return {
         ...prevCredentials,
@@ -23,7 +23,7 @@ function Login() {
     });
   }
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     fetch(`/login`, {
@@ -35,6 +35,7 @@ function Login() {
     }).then((r) => {
       if (r.ok) {
         r.json().then((currentUser) => setUser(currentUser));
+        setUserLoaded(true);
         history.push("/timeline");
       } else {
         r.json().then((err) => setErrors(err.errors));
@@ -82,6 +83,6 @@ function Login() {
       ) : null}
     </main>
   );
-}
+};
 
 export default Login;

@@ -1,17 +1,17 @@
-import { useState, useContext } from "react";
-import { useHistory } from "react-router-dom";
-import { UserContext } from "../context/UserProvider";
+import { useState, useContext, Dispatch, SetStateAction } from "react";
 import { TagsContext } from "../context/TagsProvider";
 import AddTagDialog from "./AddTagDialog";
 import TagsEditDialog from "./TagsEditDialog";
+import { Post } from "../types";
 
-function NewPostForm({ setPosts, pushHome }) {
+interface NewPostFormProps {
+  setPosts: Dispatch<SetStateAction<Post[]>>;
+}
+
+const NewPostForm: React.FC<NewPostFormProps> = ({ setPosts }) => {
   const [errors, setErrors] = useState([]);
 
-  const { user } = useContext(UserContext);
   const { tags, setTags } = useContext(TagsContext);
-
-  const history = useHistory();
 
   const [newPost, setNewPost] = useState({
     post_text: "",
@@ -22,7 +22,9 @@ function NewPostForm({ setPosts, pushHome }) {
   const [isAddTagOpen, setIsAddTagOpen] = useState(false);
   const [isTagsEditOpen, setIsTagsEditOpen] = useState(false);
 
-  function handleChange(e) {
+  function handleChange(
+    e: React.ChangeEvent<HTMLTextAreaElement | HTMLSelectElement>
+  ) {
     setNewPost((prevNewPost) => {
       return {
         ...prevNewPost,
@@ -31,7 +33,7 @@ function NewPostForm({ setPosts, pushHome }) {
     });
   }
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     const r = await fetch(`/posts`, {
@@ -51,12 +53,6 @@ function NewPostForm({ setPosts, pushHome }) {
       setErrors(err.errors);
     }
   }
-
-  // function handlePushHome() {
-  //   if (pushHome) {
-  //     history.push("/timeline");
-  //   }
-  // }
 
   return (
     <div>
@@ -118,11 +114,7 @@ function NewPostForm({ setPosts, pushHome }) {
             onClick={() => setIsTagsEditOpen(true)}
           ></button>
 
-          <button
-            className="post-button"
-            type="submit"
-            // onClick={handlePushHome}
-          >
+          <button className="post-button" type="submit">
             post
           </button>
         </div>
@@ -135,11 +127,7 @@ function NewPostForm({ setPosts, pushHome }) {
       ) : null}
 
       {isTagsEditOpen ? (
-        <TagsEditDialog
-          onClose={() => setIsTagsEditOpen(false)}
-          tags={tags}
-          setTags={setTags}
-        />
+        <TagsEditDialog onClose={() => setIsTagsEditOpen(false)} tags={tags} />
       ) : null}
 
       {errors.length ? (
@@ -151,6 +139,6 @@ function NewPostForm({ setPosts, pushHome }) {
       ) : null}
     </div>
   );
-}
+};
 
 export default NewPostForm;

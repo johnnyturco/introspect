@@ -95,7 +95,7 @@ input {
   border-radius: 10px;
   border: 1px solid #767676;
   padding: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 /* NAV */
@@ -201,7 +201,7 @@ a:hover::before {
   gap: 10px;
 }
 
-.edit-button, .delete-button, .settings-button, .done-button {
+.edit-button, .delete-button, .settings-button, .done-button, .close-button {
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -223,6 +223,11 @@ a:hover::before {
 
 .done-button {
   background-image: url("../public/done_icon.svg");
+  background-size: 25px;
+}
+
+.close-button {
+  background-image: url("../public/close_icon.svg");
   background-size: 25px;
 }
 
@@ -266,6 +271,32 @@ a:hover::before {
 .edit-tags-form {
   display: flex;
   gap: 10px;
+}
+
+.edit-tag-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.tag-text {
+  /* background-color: #4c4e54; */
+  display: flex;
+  align-items: center;
+  border: 1px solid #686a6d;
+  border-radius: 10px;
+  padding: 0 10px;
+  height: 35px;
+  width: 150px;
+}
+
+.edit-tag-input {
+  width: 150px;
+}
+
+#tag-done-button {
+  display: flex;
+  justify-content: center;
 }
 
 /* ANIMATIONS */
@@ -342,7 +373,7 @@ a:hover::before {
   }
 }
 
-/* DIALOG */
+/* DIALOGS */
 .back-drop {
   position: fixed;
   inset: 0;

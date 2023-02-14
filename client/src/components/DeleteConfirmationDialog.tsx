@@ -1,14 +1,25 @@
 import { useRef } from "react";
 import { rootElement } from "..";
 import { createPortal } from "react-dom";
+import { Post } from "../types";
 
-function DeleteConfirmationDialog({ onClose, onPostDelete, post }) {
-  const dialogRef = useRef();
-  const backdropRef = useRef();
+interface DeleteConfirmationDialogProps {
+  onClose: () => void;
+  onPostDelete: (id: number) => void;
+  post: Post;
+}
+
+const DeleteConfirmationDialog: React.FC<DeleteConfirmationDialogProps> = ({
+  onClose,
+  onPostDelete,
+  post,
+}) => {
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const backdropRef = useRef<HTMLDivElement>(null);
 
   function handleClose() {
-    const animationPromise = new Promise((resolve) => {
-      if (dialogRef.current) {
+    const animationPromise = new Promise<void>((resolve) => {
+      if (dialogRef.current && backdropRef.current) {
         dialogRef.current.classList.remove("fade-in-foward-up");
         dialogRef.current.classList.add("fade-out-down");
         backdropRef.current.classList.remove("fade-in-fwd");
@@ -48,8 +59,8 @@ function DeleteConfirmationDialog({ onClose, onPostDelete, post }) {
         </div>
       </div>
     </div>,
-    rootElement
+    rootElement!
   );
-}
+};
 
 export default DeleteConfirmationDialog;

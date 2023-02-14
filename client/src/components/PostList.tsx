@@ -4,7 +4,7 @@ import Post from "./Post";
 import NewPostForm from "./NewPostForm";
 import { subDays, subMonths, isWithinInterval } from "date-fns";
 
-function PostList() {
+const PostList = () => {
   const [selectedSort, setSelectedSort] = useState("descending");
   const [selectedFilter, setSelectedFilter] = useState("all");
 
@@ -35,17 +35,17 @@ function PostList() {
       })
       .sort((a, b) =>
         selectedSort === "descending"
-          ? new Date(b.created_at) - new Date(a.created_at)
-          : new Date(a.created_at) - new Date(b.created_at)
+          ? new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+          : new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
       );
   }, [posts, selectedSort, selectedFilter]);
 
   // ***************************
 
-  function handlePostDelete(id) {
-    const updatedPosts = posts.filter((post) => post.id !== id);
-    setPosts(updatedPosts);
-  }
+  // function handlePostDelete(id: number) {
+  //   const updatedPosts = posts.filter((post) => post.id !== id);
+  //   setPosts(updatedPosts);
+  // }
 
   // ***************************
 
@@ -86,7 +86,7 @@ function PostList() {
                 posts={posts}
                 setPosts={setPosts}
                 isTag={true}
-                onPostDelete={handlePostDelete}
+                // onPostDelete={handlePostDelete}
               />
             ))
           : null}
@@ -94,6 +94,6 @@ function PostList() {
       </section>
     </>
   );
-}
+};
 
 export default PostList;

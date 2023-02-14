@@ -2,8 +2,9 @@ import { useContext } from "react";
 import { PostsContext } from "../context/PostsProvider";
 import { PieChart } from "react-minimal-pie-chart";
 import { subDays, subMonths, isWithinInterval } from "date-fns";
+import { Post } from "../types";
 
-function Trends() {
+const Trends = () => {
   const { posts } = useContext(PostsContext);
 
   const allMoods = [
@@ -55,9 +56,7 @@ function Trends() {
   //   isPostWithin(post.created_at, 0, 1, 0)
   // );
 
-  // ***************************
-
-  // Refactor of date calculations with date-fns
+  // Refactor of date calculations with date-fns:
   const postsWithinDay = posts.filter((post) =>
     isWithinInterval(new Date(post.created_at), {
       start: subDays(new Date(), 1),
@@ -78,41 +77,51 @@ function Trends() {
   );
   // ***************************
 
-  function moodPercentage(postsArray, mood, totalPosts) {
+  function moodPercentage(
+    postsArray: Post[],
+    mood: string,
+    totalPosts: number
+  ) {
     return (
       (postsArray.filter((post) => post.mood === mood).length / totalPosts) *
       100
     );
   }
 
-  const moodDataOverall = [];
-  const moodDataDay = [];
-  const moodDataWeek = [];
-  const moodDataMonth = [];
+  interface TimePeriod {
+    title: string;
+    value: number;
+    color: string;
+  }
 
-  function generateChart(postsArray, timePeriod) {
+  const moodDataOverall: TimePeriod[] = [];
+  const moodDataDay: TimePeriod[] = [];
+  const moodDataWeek: TimePeriod[] = [];
+  const moodDataMonth: TimePeriod[] = [];
+
+  function generateChart(postsArray: Post[], timePeriods: TimePeriod[]) {
     const totalPosts = postsArray.length;
     const applicableMoods = allMoods.filter(
       (oneMood) => moodPercentage(postsArray, oneMood, totalPosts) > 0
     );
     applicableMoods.map((oneMood) =>
-      timePeriod.push({
+      timePeriods.push({
         title: oneMood,
         value: moodPercentage(postsArray, oneMood, totalPosts),
         color: "",
       })
     );
-    for (let i = 0; i < timePeriod.length; i++) {
-      timePeriod[i].color = colors[i];
+    for (let i = 0; i < timePeriods.length; i++) {
+      timePeriods[i].color = colors[i];
     }
-    if (timePeriod.length > 0) {
-      return timePeriod;
-    } else {
-      timePeriod = {
-        title: "no data",
-      };
-    }
-    return timePeriod;
+    // if (timePeriods.length > 0) {
+    //   return timePeriods;
+    // } else {
+    //   timePeriods = [{
+    //     title: "no data",
+    //   }];
+    // }
+    return timePeriods;
   }
 
   return (
@@ -177,6 +186,6 @@ function Trends() {
       </main>
     </div>
   );
-}
+};
 
 export default Trends;

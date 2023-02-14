@@ -1,10 +1,23 @@
-import { useState } from "react";
+import { useState, Dispatch, SetStateAction } from "react";
 import EditPostDialog from "./EditPostDialog";
 import DeleteConfirmationDialog from "./DeleteConfirmationDialog";
+import { Post as PostType } from "../types";
 
-function Post({ post, posts, setPosts, isTag, onPostDelete }) {
+interface PostProps {
+  post: PostType;
+  posts: PostType[];
+  setPosts: Dispatch<SetStateAction<PostType[]>>;
+  isTag?: boolean;
+}
+
+const Post: React.FC<PostProps> = ({ post, posts, setPosts, isTag }) => {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+
+  function handlePostDelete(id: number) {
+    const updatedPosts = posts.filter((onePost) => onePost.id !== id);
+    setPosts(updatedPosts);
+  }
 
   return (
     <div className="card-container">
@@ -47,13 +60,13 @@ function Post({ post, posts, setPosts, isTag, onPostDelete }) {
         {isDeleteOpen ? (
           <DeleteConfirmationDialog
             onClose={() => setIsDeleteOpen(false)}
-            onPostDelete={onPostDelete}
+            onPostDelete={handlePostDelete}
             post={post}
           />
         ) : null}
       </article>
     </div>
   );
-}
+};
 
 export default Post;

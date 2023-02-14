@@ -1,14 +1,20 @@
-import { useRef, useState } from "react";
+import { useRef, useState, Dispatch, SetStateAction } from "react";
 import { rootElement } from "..";
 import { createPortal } from "react-dom";
+import { TagWithPosts } from "../types";
 
-function AddTagDialog({ onClose, setTags }) {
+interface AddTagDialogProps {
+  onClose: () => void;
+  setTags: Dispatch<SetStateAction<TagWithPosts[]>>;
+}
+
+const AddTagDialog: React.FC<AddTagDialogProps> = ({ onClose, setTags }) => {
   const [tagName, setTagName] = useState("");
-  const dialogRef = useRef();
-  const backdropRef = useRef();
+  const backdropRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
 
   function handleClose() {
-    if (dialogRef.current) {
+    if (dialogRef.current && backdropRef.current) {
       dialogRef.current.classList.remove("fade-in-foward-up");
       dialogRef.current.classList.add("fade-out-down");
       backdropRef.current.classList.remove("fade-in-fwd");
@@ -62,8 +68,8 @@ function AddTagDialog({ onClose, setTags }) {
         </div>
       </div>
     </div>,
-    rootElement
+    rootElement!
   );
-}
+};
 
 export default AddTagDialog;

@@ -1,12 +1,23 @@
-import { useRef, useState, useContext } from "react";
+import { useRef, useState, useContext, Dispatch, SetStateAction } from "react";
 import { rootElement } from "..";
 import { createPortal } from "react-dom";
 import { TagsContext } from "../context/TagsProvider";
+import { Post } from "../types";
 
-function EditPostDialog({ onClose, post, setPosts }) {
+interface EditPostDialogProps {
+  onClose: () => void;
+  post: Post;
+  setPosts: Dispatch<SetStateAction<Post[]>>;
+}
+
+const EditPostDialog: React.FC<EditPostDialogProps> = ({
+  onClose,
+  post,
+  setPosts,
+}) => {
   const [errors, setErrors] = useState([]);
 
-  const { tags, setTags } = useContext(TagsContext);
+  const { tags } = useContext(TagsContext);
 
   const [editPost, setEditPost] = useState({
     post_text: post.post_text,
@@ -14,11 +25,11 @@ function EditPostDialog({ onClose, post, setPosts }) {
     tag_name: post.tag.tag_name,
   });
 
-  const dialogRef = useRef();
-  const backdropRef = useRef();
+  const backdropRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
 
   function handleClose() {
-    if (dialogRef.current) {
+    if (dialogRef.current && backdropRef.current) {
       dialogRef.current.classList.remove("fade-in-foward-up");
       dialogRef.current.classList.add("fade-out-down");
       backdropRef.current.classList.remove("fade-in-fwd");
@@ -32,7 +43,9 @@ function EditPostDialog({ onClose, post, setPosts }) {
     }
   }
 
-  function handleChange(e) {
+  function handleChange(
+    e: React.ChangeEvent<HTMLTextAreaElement | HTMLSelectElement>
+  ) {
     setEditPost((prevPost) => {
       return {
         ...prevPost,
@@ -41,7 +54,7 @@ function EditPostDialog({ onClose, post, setPosts }) {
     });
   }
 
-  function handleUpdateRender(updatedPostFromServer) {
+  function handleUpdateRender(updatedPostFromServer: Post) {
     setPosts((prev) => {
       const filtered = prev.filter(
         (post) => post.id !== updatedPostFromServer.id
@@ -50,7 +63,7 @@ function EditPostDialog({ onClose, post, setPosts }) {
     });
   }
 
-  function handleUpdatePost(e) {
+  function handleUpdatePost(e: React.FormEvent) {
     e.preventDefault();
     handleClose();
 
@@ -126,8 +139,8 @@ function EditPostDialog({ onClose, post, setPosts }) {
         </div>
       ) : null}
     </div>,
-    rootElement
+    rootElement!
   );
-}
+};
 
 export default EditPostDialog;

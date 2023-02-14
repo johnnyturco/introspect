@@ -2,19 +2,21 @@ import { useContext } from "react";
 import { UserContext } from "../context/UserProvider";
 import { useHistory, NavLink } from "react-router-dom";
 
-function NavBar() {
-  let { user, setUser } = useContext(UserContext);
+const NavBar = () => {
+  const { user, setUser } = useContext(UserContext);
 
-  let history = useHistory();
+  const history = useHistory();
 
-  function handleLogout() {
+  function handleLogout(e: React.MouseEvent) {
+    e.preventDefault();
     fetch(`/logout`, {
       method: "DELETE",
     }).then((r) => {
       if (r.ok) {
         setUser(null);
+        history.push("/");
       }
-    }, []);
+    });
   }
 
   return (
@@ -22,9 +24,6 @@ function NavBar() {
       <span className="logo">introspect.</span>
       {user ? (
         <div className="navbar">
-          {/* <NavLink exact to="/new">
-            new
-          </NavLink> */}
           <NavLink exact to="/timeline">
             timeline
           </NavLink>
@@ -43,18 +42,13 @@ function NavBar() {
         </div>
       ) : (
         <div className="navbar">
-          <NavLink
-            exact
-            to="/"
-            onClick={history.push("/")}
-            className="login-logout"
-          >
+          <NavLink exact to="/" className="login-logout">
             login
           </NavLink>
         </div>
       )}
     </nav>
   );
-}
+};
 
 export default NavBar;
