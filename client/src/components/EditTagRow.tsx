@@ -13,7 +13,14 @@ const EditTagRow: React.FC<EditTagRowProps> = ({ tag }) => {
 
   const { tags, setTags } = useContext(TagsContext);
 
-  function handleDelete() {}
+  function handleDelete() {
+    fetch(`/tags/${tag.id}`, {
+      method: "DELETE",
+    });
+
+    const updatedTags = tags.filter((oneTag) => oneTag.id !== tag.id);
+    setTags(updatedTags);
+  }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();

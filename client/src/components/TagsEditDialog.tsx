@@ -40,7 +40,7 @@ const TagsEditDialog: React.FC<TagsEditDialogProps> = ({ onClose, tags }) => {
         <h4>edit tags</h4>
 
         {tags.map((tag) => (
-          <EditTagRow tag={tag} key={tag.id} />
+          <EditTagRow key={tag.id} tag={tag} />
         ))}
 
         <div className="dialog-buttons" id="tag-done-button">

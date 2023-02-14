@@ -18,7 +18,7 @@ const Post: React.FC<PostProps> = ({ post, posts, setPosts, isTag }) => {
     const updatedPosts = posts.filter((onePost) => onePost.id !== id);
     setPosts(updatedPosts);
   }
-  // console.log(post.tag.tag_name);
+
   return (
     <div className="card-container">
       <article className="card post fade-in-fwd-up">
