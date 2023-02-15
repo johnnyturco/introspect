@@ -2,6 +2,7 @@ import { useState, Dispatch, SetStateAction } from "react";
 import EditPostDialog from "./EditPostDialog";
 import DeleteConfirmationDialog from "./DeleteConfirmationDialog";
 import { Post as PostType } from "../types";
+import { ReactComponent as TagIcon } from "../svg/tag_icon.svg";
 
 interface PostProps {
   post: PostType;
@@ -24,9 +25,14 @@ const Post: React.FC<PostProps> = ({ post, posts, setPosts, isTag }) => {
       <article className="card post fade-in-fwd-up">
         <div className="post-text">{post.post_text}</div>
         <div className="post-mood-tag">
-          <div className="post-mood">{post.mood}</div>
+          <div className="post-mood">
+            <span>MOOD</span> {post.mood}
+          </div>
           {isTag && post.tag ? (
-            <div className="post-tag">{post.tag.tag_name}</div>
+            <div className="post-tag">
+              <TagIcon />
+              {post.tag.tag_name}
+            </div>
           ) : (
             ""
           )}
