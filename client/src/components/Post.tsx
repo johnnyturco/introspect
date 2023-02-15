@@ -25,9 +25,13 @@ const Post: React.FC<PostProps> = ({ post, posts, setPosts, isTag }) => {
       <article className="card post fade-in-fwd-up">
         <div className="post-text">{post.post_text}</div>
         <div className="post-mood-tag">
-          <div className="post-mood">
-            <span>MOOD</span> {post.mood}
-          </div>
+          {post.mood ? (
+            <div className="post-mood">
+              <span>MOOD</span> {post.mood}
+            </div>
+          ) : (
+            ""
+          )}
           {isTag && post.tag ? (
             <div className="post-tag">
               <TagIcon />

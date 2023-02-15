@@ -22,7 +22,7 @@ const EditPostDialog: React.FC<EditPostDialogProps> = ({
   const [editPost, setEditPost] = useState({
     post_text: post.post_text,
     mood: post.mood,
-    tag_name: post.tag.tag_name,
+    tag_name: post.tag?.tag_name,
   });
 
   const backdropRef = useRef<HTMLDivElement>(null);
@@ -96,7 +96,7 @@ const EditPostDialog: React.FC<EditPostDialogProps> = ({
           <div>
             <select
               name="mood"
-              defaultValue={post.mood}
+              defaultValue={post.mood ? post.mood : "other"}
               onChange={handleChange}
             >
               <option value="happy">happy</option>
@@ -112,9 +112,12 @@ const EditPostDialog: React.FC<EditPostDialogProps> = ({
           <div>
             <select
               name="tag_id"
-              defaultValue={post.tag.id}
+              defaultValue={post.tag?.id ? post.tag.id : "other"}
               onChange={handleChange}
             >
+              <option value="other" disabled>
+                tag
+              </option>
               {tags.map((tag) => (
                 <option value={tag.id} key={tag.id}>
                   {tag.tag_name}
