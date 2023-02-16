@@ -20,6 +20,7 @@ const Trends = () => {
   const colors = [
     "#69e257",
     "#8a57e3",
+    "#4e99fb",
     "#e2cf57",
     "#e257ae",
     "#e28957",
